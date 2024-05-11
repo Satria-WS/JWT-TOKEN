@@ -15,6 +15,10 @@ app.use( (req,res,next) => {
   console.log('log succesfully');
   next();//akan terjadi infininte loading jika tidak memaki function ini
 })
+app.use( (req,res,next) => {
+  console.log('log second succesfully');
+  next();//akan terjadi infininte loading jika tidak memaki function ini
+})
 
 
 app.get('/', (req, res) => {
