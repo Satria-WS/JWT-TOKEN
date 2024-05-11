@@ -11,8 +11,11 @@ const router = express.Router();
 //   res.send("users post");
 // })
 
+//get user
 router.get('/', getAllUsers)
+//create post user
 router.post('/', createUser)
+
 
 
 

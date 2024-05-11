@@ -5,7 +5,9 @@ export const getAllUsers = (req, res) => {
 }
 
 export const createUser = (req, res) => {
+  console.log(req.body);
   res.json({
-    message: 'create  USER'
+    message: 'create  USER',
+    data: req.body
   })
 }
