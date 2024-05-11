@@ -1,0 +1,103 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav>
+
+      <h4>Node MySQL</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+      </ul>
+    </nav>
+    <div class="container mt-4">
+      <div class="card-body">
+        <form id="login-form"  action="/auth/login" method="post">
+        {{!-- form --}}
+
+
+       <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" name="email" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      {{#if message}}
+      <h4 class="alert alert-danger mt-4">{{message}}</h4>
+      {{/if}}
+    </div>
+
+    <script
+      src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+      <script>
+// Save token to local storage after successful login
+// Save token to local storage after successful login
+const saveTokenToLocalstorage = (token) => {
+  localStorage.setItem('token', token);
+};
+
+// Handle login form submission
+const handleLoginFormSubmit = async (event) => {
+  event.preventDefault();
+
+  // Extract email and password from form
+  const formData = new FormData(event.target);
+  const email = formData.get('email');
+  const password = formData.get('password');
+
+  try {
+    // Send login request to server
+    const response = await fetch('/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    // Handle response from server
+    if (response.ok) {
+      const data = await response.json();
+      if (data.token) {
+        // Save token to local storage
+        saveTokenToLocalstorage(data.token);
+        // Redirect to home page or perform any other action
+        window.location.href = '/home';
+      } else {
+        console.error('Token not received from server');
+      }
+    } else {
+      console.error('Login failed:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Add event listener to login form
+const loginForm = document.getElementById('login-form');
+loginForm.addEventListener('submit', handleLoginFormSubmit);
+
+
+  </script>
+  </body>
+</html>
