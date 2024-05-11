@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser,getAllUsers } from "../controller/users.js";
+import { createUser,getAllUsers,updateUser,deleteUser } from "../controller/users.js";
 const app = express();
 const router = express.Router();
 
@@ -15,6 +15,10 @@ const router = express.Router();
 router.get('/', getAllUsers)
 //create post user
 router.post('/', createUser)
+//update - PATCH
+router.patch('/:id', updateUser)
+//delete user
+router.delete('/:id' , deleteUser)
 
 
 
