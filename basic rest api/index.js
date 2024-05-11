@@ -9,7 +9,10 @@ const app = express();
 // })
 
 app.get('/', (req, res) => {
-  res.send('Hello get method');
+  // res.send('Hello get method');
+  res.json({
+    message: 'Hello'
+  })
 })
 
 app.post('/', (req,res) => {
