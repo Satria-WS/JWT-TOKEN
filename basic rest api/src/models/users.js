@@ -13,9 +13,9 @@ const userModel = {
       });
     });
   },
-  createUser: async () => {
+  createUser: async (name,email,password) => {
     return new Promise((resolve, reject) => {
-      const query = "INSERT INTO users (name , email , address) VALUES ('SATrila','zz@gmail.com','sawper')";
+      const query = `INSERT INTO users (name , email , address) VALUES (${name},${email},${password})`;
       dbPool.execute(query, (error, results, fields) => {
         if (error) {
           reject(new Error(`Error fetching users: ${error.message}`));
