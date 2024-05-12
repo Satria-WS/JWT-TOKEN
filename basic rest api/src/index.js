@@ -2,9 +2,12 @@ import express from 'express';
 import userRoutes from "./routes/users.js";
 import { logRequest } from './middlewares/logs.js';
 import dbPool from './config/db.js';
+import dotenv from "dotenv";
 
 const app = express();
 
+dotenv.config();
+const port = process.env.PORT || 5000;
 //middle ware
 app.use(logRequest);
 //middle ware ini mengizinkan req.body berupa json
@@ -41,7 +44,7 @@ dbPool.getConnection((err) => {
 // connectToDatabase();
 
 
-const port = 4000
+
 app.listen(port, () => {
   console.log('Server succesfull on port ' + port)
 })
