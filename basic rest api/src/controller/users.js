@@ -18,6 +18,7 @@ export const getAllUsers = async (req, res) => {
 
 export const getByIdUsers = async (req, res) => {
   const { id } = req.params;
+  console.log(id)
   try {
     const data = await userModel.getById(id);
     res.status(200).json({

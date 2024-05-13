@@ -13,7 +13,7 @@ const userModel = {
       });
     });
   },
-  getById: async () => {
+  getById: async (id) => {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM users WHERE id = ?';
       dbPool.execute(query, [id], (error, results, fields) => {
