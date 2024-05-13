@@ -60,7 +60,7 @@ export const updateUser = async(req, res) => {
   try {
     const data = await userModel.updateUser(id , name , email , address);
     res.status(200).json({
-      message: "create user",
+      message: "update user",
       data: data,
     });
   } catch (err) {
