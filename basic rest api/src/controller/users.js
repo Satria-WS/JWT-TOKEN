@@ -17,8 +17,9 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const getByIdUsers = async (req, res) => {
+  const { id } = req.params;
   try {
-    const data = await userModel.getAll();
+    const data = await userModel.getById(id);
     res.status(200).json({
       message: "Get all user",
       data: data,
