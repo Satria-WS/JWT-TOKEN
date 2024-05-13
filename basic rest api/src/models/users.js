@@ -13,7 +13,19 @@ const userModel = {
       });
     });
   },
-  
+  getById: async () => {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT * FROM users WHERE id = ?';
+      dbPool.execute(query, [id], (error, results, fields) => {
+        if (error) {
+          reject(new Error(`Error fetching users: ${error.message}`));
+        } else {
+          resolve(results);
+        }
+      })
+    })
+  }
+  ,
   createUser: async (name,email,address) => {
     return new Promise((resolve, reject) => {
       const query = 'INSERT INTO users (name, email, address) VALUES (?, ?, ?)';
