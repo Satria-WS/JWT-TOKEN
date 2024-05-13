@@ -13,6 +13,7 @@ const userModel = {
       });
     });
   },
+  
   createUser: async (name,email,address) => {
     return new Promise((resolve, reject) => {
       const query = 'INSERT INTO users (name, email, address) VALUES (?, ?, ?)';
@@ -30,6 +31,18 @@ const userModel = {
             }
         });
           // resolve(results);
+        }
+      });
+    });
+  },
+  updateUser: async (id , name,email, address) => {
+    return new Promise((resolve, reject) => {
+      const query = 'UPDATE users SET name = ?, email = ?, address = ? WHERE id = ?';
+      dbPool.execute(query,[name , email , address, id], (error, results, fields) => {
+        if (error) {
+          reject(new Error(`Error fetching users: ${error.message}`));
+        } else {
+          resolve(results);
         }
       });
     });
