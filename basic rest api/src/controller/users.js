@@ -21,7 +21,7 @@ export const getByIdUsers = async (req, res) => {
   try {
     const data = await userModel.getById(id);
     res.status(200).json({
-      message: "Get all user",
+      message: "Get id user",
       data: data,
     });
   } catch (err) {
