@@ -16,12 +16,22 @@ export const getAllUsers = async (req, res) => {
  }
 };
 
-export const createUser = (req, res) => {
+export const createUser = async(req, res) => {
   console.log(req.body);
-  res.json({
-    message: "create  USER",
-    data: req.body,
-  });
+  const { name, email, address } = req.body;
+  try {
+    const data = await userModel.createUser(name , email , address);
+    res.status(200).json({
+      message: "create user",
+      data: data,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Server Error',
+      server: err.message
+    })
+ }
 };
 
 
