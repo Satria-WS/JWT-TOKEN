@@ -13,14 +13,23 @@ const userModel = {
       });
     });
   },
-  createUser: async (name,email,password) => {
+  createUser: async (name,email,address) => {
     return new Promise((resolve, reject) => {
-      const query = `INSERT INTO users (name , email , address) VALUES (${name},${email},${password})`;
-      dbPool.execute(query, (error, results, fields) => {
+      const query = 'INSERT INTO users (name, email, address) VALUES (?, ?, ?)';
+       dbPool.execute(query, [name, email, address], (error, results, fields) => {
         if (error) {
           reject(new Error(`Error fetching users: ${error.message}`));
         } else {
-          resolve(results);
+          const insertId = results.insertId;
+          const query =  'SELECT * FROM users WHERE id = ?'
+          dbPool.execute(query, [insertId], (error, results, fields) => {
+            if (error) {
+                reject(new Error(`Error fetching inserted user: ${error.message}`));
+            } else {
+                resolve(results[0]); // Return the first (and only) row of the result set
+            }
+        });
+          // resolve(results);
         }
       });
     });
