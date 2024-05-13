@@ -72,12 +72,29 @@ export const updateUser = async(req, res) => {
  }
 };
 
-export const deleteUser = (req, res) => {
-  const data = {  id: req.params.id,name: "tole", email: "tole@gmail.com", address: "sawangan" };
+export const deleteUser = async(req, res) => {
+  const { id } = req.params;
+  // console.log(id)
+  try {
+    const findId = await userModel.getById(id);
+    // console.log("findId",findId.length)
+    if (findId.length === 0) {
+      res.json({
+        message:'id not found'
+      })
+      return;
+    }
 
-
-  res.json({
-    message: "delete  USER",
-    data: data,
-  });
+    const data = await userModel.deleteUser(id);
+    res.status(200).json({
+      message: "delete id user succesfull",
+      data: undefined,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'Server Error',
+      server: err.message
+    })
+ }
 };

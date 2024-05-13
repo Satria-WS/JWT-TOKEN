@@ -54,11 +54,31 @@ const userModel = {
         if (error) {
           reject(new Error(`Error fetching users: ${error.message}`));
         } else {
-          resolve(results);
+          const query = 'SELECT * FROM users WHERE id = ?';
+          dbPool.execute(query, [id], (error, results, fields) => {
+            if (error) {
+              reject(new Error(`Error fetching users: ${error.message}`));
+            } else {
+              resolve(results);
+            }
+          })
+          // resolve(results);
         }
       });
     });
   },
+  deleteUser: async (id) => {
+    return new Promise((resolve, reject) => {
+      const query = 'DELETE FROM users WHERE id = ?';
+      dbPool.execute(query, [id], (error, results, fields) => {
+        if (error) {
+          reject(new Error(`Error fetching users: ${error.message}`));
+        } else {
+          resolve(results);
+        }
+      })
+    })
+  }
 
 };
 
