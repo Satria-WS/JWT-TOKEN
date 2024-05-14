@@ -13,6 +13,9 @@ app.use(logRequest);
 //middle ware ini mengizinkan req.body berupa json
 app.use(express.json());
 
+//middle ware static
+app.use(express.static('public'));
+
 //grouping routes
 app.use('/users', userRoutes)
 
