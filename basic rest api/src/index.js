@@ -1,9 +1,10 @@
 import express from 'express';
 import userRoutes from "./routes/users.js";
+import uploadRoutes from "./controller/upload.js"
 import { logRequest } from './middlewares/logs.js';
 import dbPool from './config/db.js';
-import upload from './middlewares/multer.js';
 import dotenv from 'dotenv';
+// import upload from './middlewares/multer.js';
 
 
 const app = express();
@@ -16,15 +17,25 @@ app.use(logRequest);
 app.use(express.json());
 
 //middle ware static
-app.use("/assets",express.static('public/images'));
+app.use("/assets", express.static('public/images'));
+
+// //upload image
+// app.post('/upload',upload.single('photo'),(req, res) => {
+//   res.json({
+//     message: 'Upload berhasil'
+//   })
+// })
+
+
 
 //grouping routes
-app.use('/users', userRoutes)
+app.use('/users', userRoutes);
+app.use('/upload', uploadRoutes)
 
-//upload image
-app.post('/upload',upload.single('photo'),(req, res) => {
+//handler error
+app.use((err, req, res, next) => {
   res.json({
-    message: 'Upload berhasil'
+    message: err.message
   })
 })
 

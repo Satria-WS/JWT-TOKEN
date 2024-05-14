@@ -1,6 +1,5 @@
 import multer from 'multer';
-// import dotenv from 'dotenv';
-// dotenv.config();
+
 import path from 'path';
 
 const storage = multer.diskStorage({
