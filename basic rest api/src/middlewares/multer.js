@@ -9,10 +9,10 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const timestamp = new Date().getTime();
-    const fileName = file.filename;
-    const extension = path.extname(file.originalname);
+    const orignalname = file.originalname;
+    // console.log(file);
 
-    cb(null, `${timestamp}-${fileName}${extension}`);
+    cb(null, `${timestamp}-${orignalname}`);
   }
 });
 
